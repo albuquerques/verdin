@@ -18,11 +18,18 @@ def main():
 
     commit_and_push(config, file_to_add)
     log("Commit e push realizados com sucesso.")
+    sys.exit(0)
 
 
 if __name__ == "__main__":
     try:
         main()
-    except Exception as e:
+    except FileNotFoundError as e:
+        log(f"ERRO: Caminho do repositório não encontrado: {e}")
+        sys.exit(1)
+    except RuntimeError as e:
         log(f"ERRO: {e}")
+        sys.exit(1)
+    except Exception as e:
+        log(f"ERRO inesperado ({type(e).__name__}): {e}")
         sys.exit(1)
