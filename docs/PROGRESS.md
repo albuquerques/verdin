@@ -1,7 +1,7 @@
 # Verdin — Progresso de Desenvolvimento
 
 **Sprints concluídas:** 4 / 8  
-**Progresso:** ████████████████ 50%
+**Progresso:** ████████░░░░░░░░ 50%
 
 ---
 
