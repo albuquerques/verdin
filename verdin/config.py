@@ -1,9 +1,28 @@
 # pip install python-dotenv
 import os
 import sys
+from pathlib import Path
 
 from dotenv import load_dotenv
 
 
 def load_config():
-    pass
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    load_dotenv(env_path)
+
+    token = os.getenv("VERDIN_GITHUB_TOKEN")
+    if not token:
+        print("Erro: VERDIN_GITHUB_TOKEN não encontrado. Defina essa variável no arquivo .env.")
+        sys.exit(1)
+
+    repo_path = os.getenv("VERDIN_REPO_PATH")
+    if not repo_path:
+        print("Erro: VERDIN_REPO_PATH não encontrado. Defina essa variável no arquivo .env.")
+        sys.exit(1)
+
+    return {
+        "token": token,
+        "repo_path": repo_path,
+        "branch": os.getenv("VERDIN_BRANCH", "main"),
+        "commit_msg": os.getenv("VERDIN_COMMIT_MSG", "chore: daily update - {date}"),
+    }
