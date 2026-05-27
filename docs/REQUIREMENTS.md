@@ -76,11 +76,18 @@ O programa deve suportar as seguintes configurações, preferencialmente via var
 
 ```
 verdin/
+├── verdin/               # Módulo Python principal
+│   ├── __init__.py
+│   ├── config.py         # Carregamento e validação das variáveis de ambiente
+│   ├── git.py            # Operações git (subprocess, autenticação, push)
+│   └── log.py            # Logger de console e escrita no arquivo de log
+├── docs/
+│   ├── REQUIREMENTS.md   # Este documento
+│   └── verdin-sprints.md # Plano de desenvolvimento por sprints
+├── main.py               # Ponto de entrada — orquestra o fluxo principal
 ├── .env.example          # Exemplo de variáveis de ambiente (sem valores reais)
 ├── .gitignore            # Deve ignorar .env e arquivos sensíveis
-├── verdin.py             # Script principal (ou index.js, etc.)
-├── README.md             # Instruções de uso e configuração
-└── REQUIREMENTS.md       # Este documento
+└── README.md             # Instruções de uso e configuração
 ```
 
 ---

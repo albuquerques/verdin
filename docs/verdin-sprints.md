@@ -24,9 +24,14 @@
    VERDIN_BRANCH=main
    VERDIN_COMMIT_MSG=chore: daily update - {date}
    ```
-4. Criar `verdin/verdin.py` vazio (apenas um comentário de cabeçalho e `pass`)
-5. Criar `verdin/README.md` com título e seção de "em construção"
-6. Criar `verdin/REQUIREMENTS.md` (copiar o documento de requisitos original)
+4. Criar o módulo `verdin/verdin/` com os arquivos:
+   - `__init__.py` — vazio (marca o diretório como pacote Python)
+   - `config.py` — esqueleto de `load_config()`
+   - `git.py` — esqueleto de `run_git()`, `already_committed_today()`, `commit_and_push()`
+   - `log.py` — esqueleto de `log()` e `update_log_file()`
+5. Criar `verdin/main.py` — ponto de entrada com `main()` e bloco `if __name__ == "__main__"`
+6. Criar `verdin/README.md` com título e seção de "em construção"
+7. Criar `verdin/docs/REQUIREMENTS.md` (copiar o documento de requisitos original)
 
 **Critério de conclusão:** Estrutura de pastas e arquivos existe conforme seção 5 do REQUIREMENTS.md. Nenhum arquivo sensível está fora do `.gitignore`.
 
@@ -36,7 +41,7 @@
 
 **Objetivo:** Implementar o carregamento seguro das variáveis de ambiente e validar que tudo necessário está presente antes de qualquer ação.
 
-**Arquivo principal:** `verdin/verdin.py`
+**Arquivos:** `verdin/verdin/config.py` (load_config, validação), `verdin/verdin/log.py` (log), `verdin/main.py` (chamada no __main__)
 
 **Tarefas:**
 
@@ -61,7 +66,7 @@
 
 **Objetivo:** Antes de criar qualquer commit, checar se já existe um commit no repositório feito hoje. Se sim, encerrar sem erros.
 
-**Arquivo principal:** `verdin/verdin.py`
+**Arquivos:** `verdin/verdin/git.py` (already_committed_today), `verdin/main.py` (chamada no fluxo principal)
 
 **Tarefas:**
 
@@ -86,7 +91,7 @@
 
 **Objetivo:** Criar ou atualizar o arquivo de log que será commitado, garantindo que cada execução produza uma mudança real no repositório.
 
-**Arquivo principal:** `verdin/verdin.py`
+**Arquivo:** `verdin/verdin/log.py` (update_log_file)
 
 **Tarefas:**
 
@@ -108,7 +113,7 @@
 
 **Objetivo:** Fazer o `git add`, `git commit` e `git push` usando subprocess, autenticando com o PAT via URL remota.
 
-**Arquivo principal:** `verdin/verdin.py`
+**Arquivo:** `verdin/verdin/git.py` (run_git, commit_and_push)
 
 **Tarefas:**
 
@@ -137,7 +142,7 @@
 
 **Objetivo:** Garantir que qualquer falha seja capturada, logada e resulte em código de saída correto, sem deixar arquivos corrompidos ou estado inconsistente.
 
-**Arquivo principal:** `verdin/verdin.py`
+**Arquivo:** `verdin/main.py` (try/except global, sys.exit)
 
 **Tarefas:**
 
@@ -169,7 +174,7 @@
 
 **Objetivo:** Escrever o README completo com instruções de instalação, configuração e agendamento via cron/Task Scheduler.
 
-**Arquivo principal:** `verdin/README.md`
+**Arquivo:** `verdin/README.md`
 
 **Tarefas:**
 
@@ -190,12 +195,12 @@
 4. Seção **Configuração** — tabela com as 4 variáveis de ambiente (igual ao REQUIREMENTS.md).
 5. Seção **Uso manual**:
    ```bash
-   python verdin.py
+   python main.py
    ```
 6. Seção **Agendamento**:
    - **Linux/macOS (cron):**
      ```
-     0 9 * * * /usr/bin/python3 /caminho/para/verdin/verdin.py >> /caminho/para/verdin/cron.log 2>&1
+     0 9 * * * /usr/bin/python3 /caminho/para/verdin/main.py >> /caminho/para/verdin/cron.log 2>&1
      ```
      Instruções para `crontab -e`.
    - **Windows (Task Scheduler):** passos resumidos para criar tarefa diária apontando para `python verdin.py`.
