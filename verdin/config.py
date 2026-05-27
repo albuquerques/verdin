@@ -5,6 +5,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .log import log
+
 
 def load_config():
     env_path = Path(__file__).resolve().parent.parent / ".env"
@@ -12,12 +14,12 @@ def load_config():
 
     token = os.getenv("VERDIN_GITHUB_TOKEN")
     if not token:
-        print("Erro: VERDIN_GITHUB_TOKEN não encontrado. Defina essa variável no arquivo .env.")
+        log("ERRO: VERDIN_GITHUB_TOKEN não encontrado. Defina essa variável no arquivo .env.")
         sys.exit(1)
 
     repo_path = os.getenv("VERDIN_REPO_PATH")
     if not repo_path:
-        print("Erro: VERDIN_REPO_PATH não encontrado. Defina essa variável no arquivo .env.")
+        log("ERRO: VERDIN_REPO_PATH não encontrado. Defina essa variável no arquivo .env.")
         sys.exit(1)
 
     return {
